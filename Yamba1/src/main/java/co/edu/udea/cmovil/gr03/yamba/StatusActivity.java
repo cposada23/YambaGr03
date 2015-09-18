@@ -141,6 +141,11 @@ public class StatusActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            progress = new ProgressDialog(StatusActivity.this);
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setTitle("Posteando");
+            progress.setMessage("Enviando---");
+            progress.show();
 
 
         }
@@ -166,9 +171,10 @@ public class StatusActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-
+            progress.dismiss();
             //try {
             Toast.makeText(StatusActivity.this, respuesta, Toast.LENGTH_LONG).show();
+            mTextStatus.setText(" ");
                 /*if(progress != null){
                 progress.dismiss();
 
