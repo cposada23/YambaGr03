@@ -2,20 +2,22 @@ package co.edu.udea.cmovil.gr03.yamba;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.content.Context;
-import android.view.inputmethod.InputMethodManager;
+
 import com.thenewcircle.yamba.client.YambaClient;
 import com.thenewcircle.yamba.client.YambaClientException;
 
@@ -39,7 +41,13 @@ public class StatusActivity extends Activity {
         @Override
         public void onTextChanged(CharSequence cs, int i, int i2, int i3) {
             checkFieldsForEmptyValues();
-            updateCounter(cs);
+            //updateCounter(cs);
+            mTextCount.setText(String.valueOf(140 - cs.length()));
+            if ((140 - cs.length()) < 0) {
+                mTextCount.setTextColor(Color.RED);
+            } else {
+                mTextCount.setTextColor(Color.BLACK);
+            }
         }
 
         @Override
@@ -159,6 +167,7 @@ public class StatusActivity extends Activity {
                 respuesta = "Successfully posted";
                 return "Successfully posted";
 
+
             } catch (YambaClientException e) {
                 Log.e(TAG, "Failed to post to the cloud", e);
 
@@ -174,7 +183,7 @@ public class StatusActivity extends Activity {
             progress.dismiss();
             //try {
             Toast.makeText(StatusActivity.this, respuesta, Toast.LENGTH_LONG).show();
-            mTextStatus.setText(" ");
+            mTextStatus.setText("");
                 /*if(progress != null){
                 progress.dismiss();
 
