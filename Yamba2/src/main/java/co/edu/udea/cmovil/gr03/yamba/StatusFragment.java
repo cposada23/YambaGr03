@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.view.inputmethod.InputMethodManager;
 import com.thenewcircle.yamba.client.YambaClient;
 import com.thenewcircle.yamba.client.YambaClientException;
-
+import android.content.Context;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,6 +91,7 @@ public class StatusFragment extends Fragment {
                 String status = mTextStatus.getText().toString();
                 PostTask postTask = new PostTask();
                 postTask.execute(status);
+                hideKeyboard();
                 Log.d(TAG, "onClicked");
             }
 
@@ -99,14 +100,14 @@ public class StatusFragment extends Fragment {
         return v;
     }
 
-    /*private void hideKeyboard() {
+    private void hideKeyboard() {
         // Check if no view has focus:
         View view = this.getView();
         if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }*/
-    //}
+        }
+    }
 
 
     public void onClickPost(View view) {
@@ -116,7 +117,7 @@ public class StatusFragment extends Fragment {
         Log.d("POST", "Va a comenzar");
         postTask.execute(status);
         Log.d(TAG, "Onclicked");
-        //hideKeyboard();
+        hideKeyboard();
         //removePhoneKeypad();
     }
 
